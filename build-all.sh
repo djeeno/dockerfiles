@@ -16,12 +16,14 @@ LIST
 
 echo "${dockerfiles:?}" | grep -Ev "^ *#|^ *$" | while read -r build_context; do
   (
+    # pull
+    docker pull "${DOCKER_TAG:?}" || true
     # Confine the cd command's sphere of influence to a subshell.
     cd "${build_context:?}" || exit 1
     # vars
     # shellcheck disable=SC2001
     DOCKER_TAG=$(echo "${build_context:?}" | sed "s|/\([^/]*\)$|:\1|")
-    # build
+    # build and push
     docker build --tag "${DOCKER_TAG:?}" . && docker push "${DOCKER_TAG:?}"
   )
 done
