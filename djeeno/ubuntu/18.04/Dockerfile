@@ -22,7 +22,7 @@ ENV LANG="ja_JP.UTF-8" LANGUAGE="ja_JP:ja" LC_ALL="ja_JP.UTF-8" PATH="/usr/local
 ##
 RUN set -x \
   && apt-get update \
-  && apt-get install -y bash-completion curl ssh sudo vim wget \
+  && apt-get install -y apt-file bash-completion curl ssh sudo vim wget \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && set +x
